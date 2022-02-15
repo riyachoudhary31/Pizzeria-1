@@ -1,0 +1,35 @@
+<h3 *ngIf="notFetched" class="text-danger">Could not fetch data.</h3>
+<div class="row">
+    <label class="card col-12 col-sm-6 mt-3 mb-3" *ngFor="let pizza of orderPizzaData; let i = index">
+        <label class="card-body row">
+            <label class="card-title col-12 col-sm-3">
+                <h5 style="text-transform: capitalize;">{{pizza.name}}</h5>
+                <span class="badge" [ngClass]="{'badge-success':pizza.type=='veg','badge-danger':pizza.type=='nonveg'}">&nbsp;&nbsp;</span>
+                <h6 class="mt-3">&#8377; <strong>{{pizza.price}}</strong></h6>
+            </label>
+            <label class="card-text col-12 col-sm-5">{{pizza.description}}
+                <label class="mt-2">
+                    <strong>Ingredients:</strong> <span *ngFor="let ing of pizza.ingredients">
+                        {{ing.iname}},
+                    </span>
+                </label>
+                <label class="mt-2">
+                    <strong>Toppings:</strong> <span *ngFor="let top of pizza.topping">
+                        {{top.tname}},
+                    </span>
+                </label>
+            </label>
+            <div class="card-text col-12 col-sm-4 text-center">
+                <img class="img-fluid mb-3" [src]="pizza.image" [alt]="pizza.name" /> 
+                <button  
+                class="btn btn-warning" 
+                name="pizza{{pizza.id}}"  
+               [disabled]="inCart(pizza)"
+                (click)="addToCart(pizza,i)">
+                Add to cart
+                </button>
+                <button [disabled]="!inCart(pizza)"  class="btn btn-outline-danger mt-2" name="pizza{{pizza.id}}" (click)="removeFromCart(pizza,i);">Remove from Cart</button>
+            </div>
+        </label>
+    </label>
+</div>

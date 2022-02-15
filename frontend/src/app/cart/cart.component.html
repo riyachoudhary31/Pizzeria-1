@@ -1,0 +1,36 @@
+
+<div class="card">
+    <div class="card-body row" *ngFor="let checked of dataMessage.data">
+        <img class="col-12 col-sm-2" [src]="checked.image" alt="" style="height: 10%; width: 10%;">
+        <h5 class="card-title col-12 col-sm-3">{{checked.tname|uppercase}}</h5>
+        <h6 class="card-text col-12 col-sm-3">{{checked.price|currency:'INR'}}</h6>
+    </div>
+    <div class="card-body row">
+        <h5 class="card-text text-success col-12 offset-sm-7 col-sm-3" *ngIf="dataMessage.cost">Custom Pizza Cost: {{dataMessage.cost|currency:'INR'}}</h5>
+    </div>
+</div>
+
+
+<div class="card" *ngFor="let data of orderData;let i=index">
+    <div class="card-body row">
+        <img class="col-12 col-sm-2" [src]="data.image" alt="" style="height: 10%; width: 10%;">
+        <h5 class="card-title col-12 col-sm-3">{{data.name|uppercase}}</h5>
+        <div class="card-text col-12 col-sm-3">
+            <h5 >{{data.price|currency:'INR'}}</h5>
+            <label class="row">
+                <button class=" btn btn-outline-warning col-sm-2"  (click)="decQuan(i)">-</button>
+                <input type="text" class="col-sm-3" name="qunatity{{data.id}}" [(ngModel)]="data.quantity">
+                <button class="btn btn-outline-warning col-sm-2"  (click)="incQuan(i)">+</button>
+            </label>
+        </div>
+        <div class="card-text col-12 col-sm-3 text-success" *ngIf="data.quantity>0" >      
+            <h5>Item cost: {{itemCost[i]|currency:'INR'}}</h5>
+        </div>       
+    </div>
+</div>
+
+<div class="row"> 
+    <button class="col-4 col-sm-3 btn btn-info" (click)="clearCartData()" *ngIf="(dataMessage.data || orderData)">Clear Cart</button>
+   
+    <button class="col-4 col-sm-3 btn btn-success" (click)="placeOrder();clearCartData()" *ngIf="(dataMessage.data || orderData)">Place Order</button>
+</div>
