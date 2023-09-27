@@ -20,31 +20,32 @@ export class OrderpizzaComponent implements OnInit {
   public cartData:any=[];
 
   constructor(private fd:FetchdataService) {
-  
+
   }
-  
+
   ngOnInit(): void {
 
 
     this.fd.fetchOrderPizza().subscribe((resp)=>{
+      console.log(`Riya`,resp)
       this.orderPizzaData = resp;
-      this.orderPizzaInterface = this.orderPizzaData;   
+      this.orderPizzaInterface = this.orderPizzaData;
       this.notFetched = false;
     },
     (error)=>{
       console.log("Error from fetching data service:",error);
-      
+
     });
   }
   addToCart(item:any,input:number):void{
-    this.orderPizzaInterface[input].quantity=1;  
+    this.orderPizzaInterface[input].quantity=1;
     this.cartData.push(item);
-    this.fd.cartData=this.cartData         
+    this.fd.cartData=this.cartData
   }
-  inCart(item:any):boolean{    
+  inCart(item:any):boolean{
     return (this.fd.cartData?.some((pizza)=>pizza.id==item.id))
   }
-  
+
   removeFromCart(pizza:any,index:any){
      if(this.inCart(pizza)){
      this.fd.cartData.splice(index,1);

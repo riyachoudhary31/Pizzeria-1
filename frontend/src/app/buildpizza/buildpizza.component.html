@@ -5,11 +5,11 @@
     <table class="table table-striped col-12 col-sm-8 offset-sm-2">
         <tbody>
             <tr *ngFor="let bp of customPizzaData; let i = index">
-                <td><img [src]="bp.image" style="width: 20%; height: 20%;" ></td>
+                <td><img [src]="bp.image" style="width: 10%; height: 10%;" ></td>
                 <td><strong>{{bp.tname}} &nbsp; &#8377;{{bp.price}}</strong></td>
-                <td style="color: darkorange;"><input type="checkbox"  
-                    name="bp{{bp.id}}"  
-                    [checked]="inCart(bp.id)"  
+                <td style="color: darkorange;"><input type="checkbox"
+                    name="bp{{bp.id}}"
+                    [checked]="inCart(bp.id)"
                     (change)="computeCost(bp,$event)"> Add</td>
             </tr>
         </tbody>
